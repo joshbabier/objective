@@ -23,11 +23,11 @@
         <tbody>
         {% for job in jobs %}
             {% for applicant in job.applicants.all %}
-{#                Cache the row span for each applicant, based on the number of their skills and make sure it's at least 1 #}
-                {% with applicant_rowspan=applicant.num_skills|default:'1' %}
+{#                Cache the row span for each applicant #}
+                {% with applicant_rowspan=applicant.rowspan %}
                     <tr>
                         {% if forloop.first %}
-                            <td rowspan="{{ job.num_skills }}" class="job-name">{{ job.name }}</td>
+                            <td rowspan="{{ job.rowspan }}" class="job-name">{{ job.name }}</td>
                         {% endif %}
                         <td rowspan="{{ applicant_rowspan }}" class="applicant-name">{{ applicant.name }}</td>
                         <td rowspan="{{ applicant_rowspan }}">

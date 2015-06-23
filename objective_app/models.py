@@ -9,11 +9,11 @@ class Job(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     @property
-    def num_skills(self):
-        skills = 0
+    def rowspan(self):
+        rowspan = 0
         for applicant in self.applicants.all():
-            skills += applicant.num_skills
-        return skills
+            rowspan += applicant.rowspan
+        return rowspan
 
     def __unicode__(self):
         return self.name
@@ -29,8 +29,8 @@ class Applicant(models.Model):
     updated_at = models.DateField(auto_now=True)
 
     @property
-    def num_skills(self):
-        return self.skills.count()
+    def rowspan(self):
+        return self.skills.count() or 1
 
     def __unicode__(self):
         return self.name
