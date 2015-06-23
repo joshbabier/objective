@@ -40,7 +40,7 @@
         <tbody>
         {% for job in jobs %}
             {% for applicant in job.applicants.all %}
-{#              Cache the row span for each applicant, based on the number of their skills and make sure it's at least 1 #}
+{#                Cache the row span for each applicant, based on the number of their skills and make sure it's at least 1 #}
                 {% with applicant_rowspan=applicant.num_skills|default:'1' %}
                     <tr>
                         {% if forloop.first %}
@@ -48,6 +48,7 @@
                         {% endif %}
                         <td rowspan="{{ applicant_rowspan }}" class="applicant-name">{{ applicant.name }}</td>
                         <td rowspan="{{ applicant_rowspan }}">
+{#                            Only create a link if there is an email address #}
                             {% if applicant.email %}
                                 <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a>
                             {% else %}
@@ -55,6 +56,7 @@
                             {% endif %}
                         </td>
                         <td rowspan="{{ applicant_rowspan }}">
+{#                            Only create a link if there is a website #}
                             {% if applicant.website %}
                                 <a href="{{ applicant.website }}">{{ applicant.website }}</a>
                             {% else %}
