@@ -52,7 +52,7 @@
                             {% if applicant.email %}
                                 <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a>
                             {% else %}
-                                None
+                                ---
                             {% endif %}
                         </td>
                         <td rowspan="{{ applicant_rowspan }}">
@@ -60,11 +60,11 @@
                             {% if applicant.website %}
                                 <a href="{{ applicant.website }}">{{ applicant.website }}</a>
                             {% else %}
-                                None
+                                ---
                             {% endif %}
                         </td>
-                        <td>{{ applicant.skills.all|first|default:"None" }}</td>
-                        <td rowspan="{{ applicant_rowspan }}">{{ applicant.cover_letter }}</td>
+                        <td>{{ applicant.skills.all|first|default:"---" }}</td>
+                        <td rowspan="{{ applicant_rowspan }}">{{ applicant.cover_letter|default:"---" }}</td>
                     </tr>
                 {% endwith %}
                 {% for skill in applicant.skills.all %}
