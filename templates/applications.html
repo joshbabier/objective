@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Job Applicants Report</title>
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssreset/cssreset-min.css">
+    <link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/3.9.1/build/cssbase/cssbase-min.css">
+    <style type="text/css">
+        #page {
+            width: 1200px;
+            margin: 30px auto;
+        }
+
+        .job-applicants {
+            width: 100%;
+        }
+
+        .job-name {
+            text-align: center;
+        }
+
+        .applicant-name {
+            width: 150px;
+        }
+    </style>
+</head>
+<body>
+<div id="page">
+    <table class="job-applicants">
+        <thead>
+        <tr>
+            <th>Job</th>
+            <th>Applicant Name</th>
+            <th>Email Address</th>
+            <th>Website</th>
+            <th>Skills</th>
+            <th>Cover Letter Paragraph</th>
+        </tr>
+        </thead>
+
+        <tbody>
+        {% for job in jobs %}
+            {% for applicant in job.applicants.all %}
+                <tr>
+                    {% if forloop.first %}
+                        <td rowspan="{{ job.num_skills }}" class="job-name">{{ job.name }}</td>
+                    {% endif %}
+                    <td rowspan="{{ applicant.num_skills }}" class="applicant-name">{{ applicant.name }}</td>
+                    <td rowspan="{{ applicant.num_skills }}">
+                        <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a>
+                    </td>
+                    <td rowspan="{{ applicant.num_skills }}">
+                        <a href="{{ applicant.website }}">{{ applicant.website }}</a>
+                    </td>
+                    <td>{{ applicant.skills.all|first }}</td>
+                    <td rowspan="{{ applicant.num_skills }}">{{ applicant.cover_letter }}</td>
+                </tr>
+                {% for skill in applicant.skills.all %}
+                    {% if forloop.counter > 1 %}
+                        <tr>
+                            <td>{{ skill }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            {% endfor %}
+        {% endfor %}
+        </tbody>
+        <tfooter>
+            <tr>
+                <td colspan="6">{{ num_applicants }} Applicants, {{ num_unique_skills }} Unique Skills</td>
+            </tr>
+        </tfooter>
+    </table>
+</div>
+</body>
+</html>
+
