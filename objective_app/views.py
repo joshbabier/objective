@@ -2,7 +2,7 @@ __author__ = 'joshbabier'
 
 from django.views.generic import TemplateView
 
-from objective_app.models import Applicant, Job, Skill
+from .models import Applicant, Job, Skill
 
 
 class ApplicationView(TemplateView):

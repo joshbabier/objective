@@ -1,6 +1,6 @@
 __author__ = 'joshbabier'
 
-from django.conf.urls import include, url
+from django.conf.urls import url
 
 from objective_app.views import ApplicationView
 
