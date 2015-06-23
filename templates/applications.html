@@ -40,20 +40,30 @@
         <tbody>
         {% for job in jobs %}
             {% for applicant in job.applicants.all %}
-                <tr>
-                    {% if forloop.first %}
-                        <td rowspan="{{ job.num_skills }}" class="job-name">{{ job.name }}</td>
-                    {% endif %}
-                    <td rowspan="{{ applicant.num_skills }}" class="applicant-name">{{ applicant.name }}</td>
-                    <td rowspan="{{ applicant.num_skills }}">
-                        <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a>
-                    </td>
-                    <td rowspan="{{ applicant.num_skills }}">
-                        <a href="{{ applicant.website }}">{{ applicant.website }}</a>
-                    </td>
-                    <td>{{ applicant.skills.all|first }}</td>
-                    <td rowspan="{{ applicant.num_skills }}">{{ applicant.cover_letter }}</td>
-                </tr>
+                {% with applicant_rowspan=applicant.num_skills %}
+                    <tr>
+                        {% if forloop.first %}
+                            <td rowspan="{{ job.num_skills }}" class="job-name">{{ job.name }}</td>
+                        {% endif %}
+                        <td rowspan="{{ applicant_rowspan }}" class="applicant-name">{{ applicant.name }}</td>
+                        <td rowspan="{{ applicant_rowspan }}">
+                            {% if applicant.email %}
+                                <a href="mailto:{{ applicant.email }}">{{ applicant.email }}</a>
+                            {% else %}
+                                None
+                            {% endif %}
+                        </td>
+                        <td rowspan="{{ applicant_rowspan }}">
+                            {% if applicant.website %}
+                                <a href="{{ applicant.website }}">{{ applicant.website }}</a>
+                            {% else %}
+                                None
+                            {% endif %}
+                        </td>
+                        <td>{{ applicant.skills.all|first }}</td>
+                        <td rowspan="{{ applicant_rowspan }}">{{ applicant.cover_letter }}</td>
+                    </tr>
+                {% endwith %}
                 {% for skill in applicant.skills.all %}
                     {% if forloop.counter > 1 %}
                         <tr>
