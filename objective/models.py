@@ -19,9 +19,9 @@ class Job(models.Model):
 
 class Applicant(models.Model):
     name = models.CharField(max_length=255)
-    email = models.EmailField()
-    website = models.CharField(max_length=255)
-    cover_letter = models.TextField()
+    email = models.EmailField(null=True)
+    website = models.CharField(max_length=255, null=True)
+    cover_letter = models.TextField(null=True)
     job = models.ForeignKey(Job, related_name='applicants')
 
     @property
