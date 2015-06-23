@@ -30,6 +30,8 @@ class Applicant(models.Model):
 
     @property
     def rowspan(self):
+        # The default of one fixes the annoying bug where the applicants
+        # row is messed up when they have no skills.
         return self.skills.count() or 1
 
     def __unicode__(self):
