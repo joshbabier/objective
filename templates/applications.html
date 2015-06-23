@@ -41,7 +41,7 @@
                         <td rowspan="{{ applicant_rowspan }}">
 {#                            Only create a link if there is a website #}
                             {% if applicant.website %}
-                                <a href="{{ applicant.website }}">{{ applicant.website }}</a>
+                                <a href="http://{{ applicant.website }}">{{ applicant.website }}</a>
                             {% else %}
                                 ---
                             {% endif %}
